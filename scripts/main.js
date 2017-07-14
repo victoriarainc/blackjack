@@ -10,37 +10,47 @@
 */
 
 function handValue(hand) {
-  var handArray = [];
-    var handTotal = 0;
-    // loop through the hand to determine each card value
-    hand.forEach(hand => {
-      if (isNaN(hand) == false) {
-        handArray.push(hand);
-      } else if (hand === 'A') {
-        handArray.push('11');
-      } else if (hand === 'K' || 'Q' || 'J') {
-        handArray.push('10');
-      }
-    });
-    //add up the hand total
-    for (var i = 0; i < handArray.length; i++) {
-      handTotal += Number(handArray[i]);
+  let handTotal = 0;
+  // loop through the hand to determine each card value
+  // .forEach is a method that loops through data
+  hand.forEach(function(hand) {
+
+    if (isNaN(hand) == false ) {
+      handTotal += Number(hand);
+
+    } else if (hand === 'A') {
+      handTotal += 11;
+
+    } else if (hand === 'K' || 'Q' || 'J') {
+      handTotal += 10;
     }
-    //do while loop for handling aces, which can be 1 or 11
-    do {
-      if (handTotal > 21 && hand.includes('A')) {
-        handTotal = handTotal - 10;
+    // isNaN is a function in JavaScript that works like forEach in that it can evaluate the given data and understand what you're asking
+    // I had to google that because "hand === '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9'" didn't work for some reason
+    // can't use an 'else' at the end because a condition
+    // still needs to be set
+  });
+  // 'Number' is an object (not an object literal)
+  // that allows you to turn strings into numbers
+
+  // the '+=' here both assigns and calculates
+  //do while loop for handling aces, which can be 1 or 11
+
+  // loop for every ace in our hand
+
+  // handTotal = 22, hand = ['A', 'A']
+  hand.forEach(function(hand) {
+    if (hand === 'A') {
+      if (handTotal > 21) {
+        handTotal -= 10;
       }
-    } while (handTotal > 21);
-    console.log(handTotal);
-    return handTotal;
+    }
+  });
+
+  console.log(handTotal);
+  return handTotal;
+
+  // math is hard y'all but these conditions are necessary
 }
-
-// ************* didn't quite work, (val, suit) would create four of
-// each number but only the number 2 & (suit, val) will create suits
-// of each number but return 'undefined' a bunch of times afterwards
-
-
 
 /* -----  Hints ------
 
